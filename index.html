@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: #ffdce9;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#login {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+.cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-image: url("depan.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+#password {
+    position: absolute;
+    left: 21%;
+    top: 63.5%;
+    width: 58%;
+    height: 8%;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.25);
+    border-radius: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: #7d4058;
+}
+#buka {
+    position: absolute;
+    left: 33%;
+    top: 75.5%;
+    width: 34%;
+    height: 8%;
+    border: none;
+    border-radius: 30px;
+    background: transparent;
+    font-size: 17px;
+    font-weight: bold;
+    color: transparent;
+    cursor: pointer;
+}
+#salah {
+    display: none;
+    margin-top: 10px;
+    color: #d62855;
+    font-weight: bold;
+}
+#hadiah {
+    display: none;
+    width: 95%;
+    max-width: 450px;
+    text-align: center;
+}
+.kartu {
+    background: white;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+#stiker {
+    width: 100%;
+    max-width: 350px;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 20px;
+}
+#judul {
+    margin-top: 15px;
+    color: #ff5f91;
+    font-size: 25px;
+    font-weight: bold;
+}
+#pesan {
+    margin-top: 15px;
+    color: #555;
+    font-size: 18px;
+    line-height: 1.6;
+    min-height: 80px;
+}
+#nomor {
+    color: #ff8bad;
+    font-size: 14px;
+    margin-top: 10px;
+}
+#lanjut {
+    margin-top: 15px;
+    padding: 13px 35px;
+    border: none;
+    border-radius: 25px;
+    background: #ff719f;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+#selesai {
+    display: none;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+}
+#selesai h1 { color: #ff5f91; }
+#selesai p {
+    color: #555;
+    font-size: 19px;
+    line-height: 1.7;
+}
+</style>
+</head>
+<body>
+
+<div id="login">
+    <div class="cover">
+        <input type="password" id="password" placeholder="Password">
+        <button id="buka" onclick="bukaHadiah()">BUKA</button>
+    </div>
+    <div id="salah">Password salah 💔</div>
+</div>
+
+<div id="hadiah">
+    <div class="kartu">
+        <img id="stiker">
+        <div id="judul">❤️ Untuk Kamu ❤️</div>
+        <div id="pesan"></div>
+        <div id="nomor"></div>
+        <button id="lanjut" onclick="berikutnya()">OK ❤️</button>
+    </div>
+</div>
+
+<div id="selesai">
+    <div class="kartu">
+        <h1>❤️ Terima Kasih ❤️</h1>
+        <p>
+            Sampai di sini dulu pesan kecil ini.
+            <br><br>
+            Semoga kamu suka. 🥰
+            <br><br>
+            I Love You ❤️
+        </p>
+    </div>
+</div>
+
+<audio id="musik" loop>
+    <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const hadiah = [
+    {
+        gambar: "1000000268.gif",
+        pesan: "Hai kamu ❤️ Aku punya sesuatu kecil untuk kamu."
+    },
+    {
+        gambar: "1000000208.gif",
+        pesan: "Terima kasih sudah menjadi seseorang yang begitu spesial. 🥰"
+    },
+    {
+        gambar: "1000000209.gif",
+        pesan: "Semoga setiap hari kamu selalu ditemani kebahagiaan dan senyuman. 💕"
+    },
+    {
+        gambar: "1000000267.gif",
+        pesan: "Dan satu hal yang ingin aku bilang... I Love You ❤️"
+    }
+];
+
+let nomorSekarang = 0;
+
+function bukaHadiah() {
+    let password = document.getElementById("password").value;
+
+    if (password === "James") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("hadiah").style.display = "block";
+
+        let musik = document.getElementById("musik");
+        musik.play().catch(function(error) {
+            console.log("Musik belum diputar:", error);
+        });
+
+        tampilkanPesan();
+    } else {
+        document.getElementById("salah").style.display = "block";
+    }
+}
+
+function tampilkanPesan() {
+    let data = hadiah[nomorSekarang];
+
+    document.getElementById("stiker").src = data.gambar;
+    document.getElementById("pesan").innerHTML = data.pesan;
+    document.getElementById("nomor").innerHTML =
+        "Pesan " + (nomorSekarang + 1) + " dari " + hadiah.length;
+}
+
+function berikutnya() {
+    nomorSekarang++;
+
+    if (nomorSekarang < hadiah.length) {
+        tampilkanPesan();
+    } else {
+        document.getElementById("hadiah").style.display = "none";
+        document.getElementById("selesai").style.display = "block";
+    }
+}
+</script>
+
+</body>
+</html>
