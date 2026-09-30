@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: #ffdce9;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#login {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+.cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-image: url("depan.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+#password {
+    position: absolute;
+    left: 21%;
+    top: 63.5%;
+    width: 58%;
+    height: 8%;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.25);
+    border-radius: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: #7d4058;
+}
+#buka {
+    position: absolute;
+    left: 33%;
+    top: 75.5%;
+    width: 34%;
+    height: 8%;
+    border: none;
+    border-radius: 30px;
+    background: transparent;
+    font-size: 17px;
+    font-weight: bold;
+    color: transparent;
+    cursor: pointer;
+}
+#salah {
+    display: none;
+    margin-top: 10px;
+    color: #d62855;
+    font-weight: bold;
+}
+#hadiah {
+    display: none;
+    width: 95%;
+    max-width: 450px;
+    text-align: center;
+}
+.kartu {
+    background: white;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+#stiker {
+    width: 100%;
+    max-width: 350px;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 20px;
+}
+#judul {
+    margin-top: 15px;
+    color: #ff5f91;
+    font-size: 25px;
+    font-weight: bold;
+}
+#pesan {
+    margin-top: 15px;
+    color: #555;
+    font-size: 18px;
+    line-height: 1.6;
+    min-height: 80px;
+}
+#nomor {
+    color: #ff8bad;
+    font-size: 14px;
+    margin-top: 10px;
+}
+#lanjut {
+    margin-top: 15px;
+    padding: 13px 35px;
+    border: none;
+    border-radius: 25px;
+    background: #ff719f;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+#selesai {
+    display: none;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+}
+#selesai h1 { color: #ff5f91; }
+#selesai p {
+    color: #555;
+    font-size: 19px;
+    line-height: 1.7;
+}
+
+/* ===== ANIMASI BUNGA FULL SCREEN ===== */
+#flowerIntro {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 45%, #fff7fb 0%, #ffdce9 45%, #ffb8d0 100%);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.flower-scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+.flower {
+    position: absolute;
+    bottom: -120px;
+    width: 90px;
+    height: 90px;
+    animation: grow 3.2s ease-out forwards;
+}
+.flower .petal {
+    position: absolute;
+    width: 42px;
+    height: 62px;
+    left: 24px;
+    top: 2px;
+    border-radius: 50% 50% 45% 45%;
+    background: #ff6f9f;
+    transform-origin: 50% 100%;
+}
+.flower .p1 { transform: rotate(0deg) translateY(-18px); }
+.flower .p2 { transform: rotate(72deg) translateY(-18px); }
+.flower .p3 { transform: rotate(144deg) translateY(-18px); }
+.flower .p4 { transform: rotate(216deg) translateY(-18px); }
+.flower .p5 { transform: rotate(288deg) translateY(-18px); }
+.flower .center {
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    left: 31px;
+    top: 31px;
+    border-radius: 50%;
+    background: #ffd166;
+    box-shadow: 0 0 15px rgba(255,209,102,.8);
+}
+.flower .stem {
+    position: absolute;
+    width: 7px;
+    height: 150px;
+    left: 42px;
+    top: 80px;
+    border-radius: 10px;
+    background: #58a66b;
+    transform-origin: top;
+}
+.flower .leaf {
+    position: absolute;
+    width: 45px;
+    height: 22px;
+    left: 5px;
+    top: 145px;
+    border-radius: 100% 0 100% 0;
+    background: #65b978;
+    transform: rotate(-25deg);
+}
+.flower .leaf2 {
+    position: absolute;
+    width: 45px;
+    height: 22px;
+    left: 42px;
+    top: 125px;
+    border-radius: 0 100% 0 100%;
+    background: #65b978;
+    transform: rotate(25deg);
+}
+.f1 { left: 5%; transform: scale(.75); animation-delay: .1s; }
+.f2 { left: 25%; transform: scale(1.05); animation-delay: .45s; }
+.f3 { left: 48%; transform: scale(1.35); animation-delay: .2s; }
+.f4 { left: 70%; transform: scale(.9); animation-delay: .7s; }
+.f5 { left: 88%; transform: scale(.7); animation-delay: .35s; }
+
+@keyframes grow {
+    0% { bottom: -180px; opacity: 0; transform: scale(.1) rotate(-8deg); }
+    55% { opacity: 1; }
+    100% { bottom: 8%; opacity: 1; transform: scale(1) rotate(0deg); }
+}
+.flower-title {
+    position: relative;
+    z-index: 2;
+    margin-top: -20vh;
+    padding: 0 25px;
+    text-align: center;
+    color: #ff4f8b;
+    font-size: clamp(30px, 7vw, 58px);
+    font-weight: bold;
+    text-shadow: 0 3px 15px rgba(255,255,255,.9);
+    opacity: 0;
+    animation: titleIn 1.2s ease 1.4s forwards;
+}
+.flower-subtitle {
+    position: relative;
+    z-index: 2;
+    margin-top: 12px;
+    color: #8b4965;
+    font-size: clamp(16px, 4vw, 22px);
+    opacity: 0;
+    animation: titleIn 1.2s ease 1.9s forwards;
+}
+@keyframes titleIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.heart-float {
+    position: absolute;
+    bottom: -40px;
+    color: #ff5f91;
+    font-size: 25px;
+    opacity: 0;
+    animation: floatHeart 4s linear infinite;
+}
+.h1 { left: 15%; animation-delay: .3s; }
+.h2 { left: 38%; animation-delay: 1.2s; }
+.h3 { left: 62%; animation-delay: .7s; }
+.h4 { left: 82%; animation-delay: 1.8s; }
+@keyframes floatHeart {
+    0% { bottom: -40px; opacity: 0; transform: translateX(0) scale(.6); }
+    15% { opacity: .8; }
+    100% { bottom: 110%; opacity: 0; transform: translateX(40px) scale(1.3); }
+}
+
+/* ===== MEDIA DI AKHIR ===== */
+#mediaAkhir {
+    margin-top: 20px;
+}
+#mediaAkhir img, #mediaAkhir video {
+    width: 100%;
+    max-height: 430px;
+    object-fit: cover;
+    border-radius: 22px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+#mediaAkhir video {
+    background: #111;
+}
+.media-note {
+    margin-top: 12px;
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* ===== ENDING INTERAKTIF ===== */
+#pertanyaanCinta { margin-top: 22px; }
+.question-big {
+    color: #ff4f8b;
+    font-size: clamp(24px, 6vw, 34px);
+    line-height: 1.35;
+    font-weight: 800;
+}
+.question-big span { color: #7d4058; font-size: clamp(20px, 5vw, 29px); }
+.tombol-cinta {
+    position: relative;
+    min-height: 115px;
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+.tombol-cinta button {
+    min-width: 125px;
+    min-height: 52px;
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 28px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .2s ease;
+}
+#iyaBtn {
+    background: #ff5f91;
+    color: white;
+    box-shadow: 0 8px 20px rgba(255,95,145,.3);
+}
+#nggakBtn { background: #eee; color: #777; }
+#jawabanCinta {
+    display: none;
+    margin-top: 16px;
+    color: #ff4f8b;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.5;
+    animation: titleIn .6s ease forwards;
+}
+.confetti-heart {
+    position: fixed;
+    z-index: 10000;
+    pointer-events: none;
+    font-size: 25px;
+    animation: heartBurst 1.8s ease-out forwards;
+}
+@keyframes heartBurst {
+    0% { transform: translate(0,0) scale(.5) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(1.4) rotate(var(--r)); opacity: 0; }
+}
+
+</style>
+</head>
+<body>
+
+
+<div id="flowerIntro">
+    <div class="flower-scene">
+        <div class="flower f1"><div class="stem"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="center"></div><div class="leaf"></div><div class="leaf2"></div></div>
+        <div class="flower f2"><div class="stem"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="center"></div><div class="leaf"></div><div class="leaf2"></div></div>
+        <div class="flower f3"><div class="stem"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="center"></div><div class="leaf"></div><div class="leaf2"></div></div>
+        <div class="flower f4"><div class="stem"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="center"></div><div class="leaf"></div><div class="leaf2"></div></div>
+        <div class="flower f5"><div class="stem"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="center"></div><div class="leaf"></div><div class="leaf2"></div></div>
+        <span class="heart-float h1">♥</span><span class="heart-float h2">♥</span><span class="heart-float h3">♥</span><span class="heart-float h4">♥</span>
+    </div>
+    <div class="flower-title">Untuk Kamu ❤️</div>
+    <div class="flower-subtitle">Ada sesuatu yang mau aku kasih tahu...</div>
+</div>
+
+<div id="login">
+    <div class="cover">
+        <input type="password" id="password" placeholder="Password">
+        <button id="buka" onclick="bukaHadiah()">BUKA</button>
+    </div>
+    <div id="salah">Password salah 💔</div>
+</div>
+
+<div id="hadiah">
+    <div class="kartu">
+        <img id="stiker">
+        <div id="judul">❤️ Untuk Kamu ❤️</div>
+        <div id="pesan"></div>
+        <div id="nomor"></div>
+        <button id="lanjut" onclick="berikutnya()">OK ❤️</button>
+    </div>
+</div>
+
+<div id="selesai">
+    <div class="kartu">
+        <h1>❤️ Tunggu Dulu... ❤️</h1>
+        <p id="pesanAkhir">
+            Sampai di sini dulu? Eits... belum 😭
+            <br><br>
+            Setelah semua yang kamu lihat...
+            ada satu pertanyaan terakhir buat kamu.
+        </p>
+
+        <div id="mediaAkhir">
+            <img id="fotoDia" src="foto-dia.jpg" alt="Foto untuk kamu"
+                 onerror="this.style.display='none'">
+            <video id="videoDia" controls playsinline preload="metadata">
+                <source src="video-dia.mp4" type="video/mp4">
+            </video>
+            <div class="media-note">❤️ dibuat khusus untuk kamu ❤️</div>
+        </div>
+
+        <div id="pertanyaanCinta">
+            <div class="question-big">Jadi...<br><span>mau nggak jadi pacarku? 🫣❤️</span></div>
+            <div class="tombol-cinta">
+                <button id="iyaBtn" type="button">MAU ❤️</button>
+                <button id="nggakBtn" type="button">NGGAK 😭</button>
+            </div>
+            <div id="jawabanCinta"></div>
+        </div>
+    </div>
+</div>
+
+
+<audio id="musik" loop>
+    <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const hadiah = [
+      {
+        teks: "akuu udahh lamaa suka kamu malahan dari smp tapi aku mikir aku ngga pantas buat kamu",
+        gif: "1000000268.gif"
+      },
+      {
+        teks: "Aku nyaman setiap kali ngobrol sama kamu. Ada sesuatu dari kamu yang bikin aku selalu pengen tahu lebih banyak tentang kamu.",
+        gif: "1000000208.gif"
+      },
+      {
+        teks: "Aku nggak tahu kamu punya perasaan yang sama atau nggak. Tapi aku nggak mau terus menyimpan ini tanpa pernah mengatakannya.",
+        gif: "1000000209.gif"
+      },
+      {
+        teks: "Aku suka sama kamu. Aku serius sama perasaan ini, dan aku pengen hubungan kita lebih dari sekadar PDKT. Kamu mau nggak jadi pacarku?",
+        gif: "1000000267.gif"
+      }
+    ]
+
+let nomorSekarang = 0;
+
+function bukaHadiah() {
+    let password = document.getElementById("password").value;
+
+    if (password === "James") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("flowerIntro").style.display = "flex";
+
+        let musik = document.getElementById("musik");
+        musik.play().catch(function(error) {
+            console.log("Musik belum diputar:", error);
+        });
+
+        setTimeout(function() {
+            document.getElementById("flowerIntro").style.display = "none";
+            document.getElementById("hadiah").style.display = "block";
+            tampilkanPesan();
+        }, 4500);
+    } else {
+        document.getElementById("salah").style.display = "block";
+    }
+}
+
+function tampilkanPesan() {
+    let data = hadiah[nomorSekarang];
+
+    document.getElementById("stiker").src = data.gambar;
+    document.getElementById("pesan").innerHTML = data.pesan;
+    document.getElementById("nomor").innerHTML =
+        "Pesan " + (nomorSekarang + 1) + " dari " + hadiah.length;
+}
+
+function berikutnya() {
+    nomorSekarang++;
+
+    if (nomorSekarang < hadiah.length) {
+        tampilkanPesan();
+    } else {
+        document.getElementById("hadiah").style.display = "none";
+        document.getElementById("selesai").style.display = "block";
+    }
+}
+document.getElementById("videoDia").addEventListener("error", function() {
+    this.style.display = "none";
+});
+
+const iyaBtn = document.getElementById("iyaBtn");
+const nggakBtn = document.getElementById("nggakBtn");
+const jawabanCinta = document.getElementById("jawabanCinta");
+const pesanAkhir = document.getElementById("pesanAkhir");
+let nggakCount = 0;
+
+function hatiBerhamburan() {
+    for (let i = 0; i < 22; i++) {
+        const h = document.createElement("div");
+        h.className = "confetti-heart";
+        h.textContent = ["❤️","💕","💖","💗","💘"][i % 5];
+        h.style.left = (45 + Math.random() * 10) + "%";
+        h.style.top = (45 + Math.random() * 10) + "%";
+        h.style.setProperty("--x", ((Math.random() - .5) * 90) + "vw");
+        h.style.setProperty("--y", ((Math.random() - .5) * 85) + "vh");
+        h.style.setProperty("--r", ((Math.random() - .5) * 90) + "deg");
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 1900);
+    }
+}
+
+iyaBtn.addEventListener("click", function() {
+    jawabanCinta.style.display = "block";
+    jawabanCinta.innerHTML =
+        "AAAAA 😭❤️<br>Berarti mulai hari ini kamu resmi jadi orang favoritku! 🥰<br><br>💐❤️💐❤️💐";
+    pesanAkhir.innerHTML =
+        "Aku sebenarnya udah lama pengen bilang ini...<br><br>" +
+        "Makasih udah mau jadi bagian dari cerita aku. ❤️";
+    iyaBtn.textContent = "YUHUUU ❤️";
+    nggakBtn.style.display = "none";
+    hatiBerhamburan();
+});
+
+nggakBtn.addEventListener("click", function() {
+    nggakCount++;
+    if (nggakCount === 1) {
+        nggakBtn.textContent = "Yakin? 🥺";
+        iyaBtn.style.transform = "scale(1.08)";
+    } else if (nggakCount === 2) {
+        nggakBtn.textContent = "Coba pikir lagi 😭";
+        iyaBtn.style.transform = "scale(1.16)";
+    } else if (nggakCount === 3) {
+        nggakBtn.textContent = "Aku tunggu... 🥹";
+        iyaBtn.style.transform = "scale(1.24)";
+    } else {
+        nggakBtn.textContent = "HEHE 😭";
+        jawabanCinta.style.display = "block";
+        jawabanCinta.textContent = "Tombol nggak-nya malu kayaknya 😂❤️";
+    }
+});
+</script>
+
+</body>
+</html>
